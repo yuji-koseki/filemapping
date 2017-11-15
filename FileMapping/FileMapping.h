@@ -13,6 +13,13 @@
 ///
 class IFileMapping
 {
+private:
+	/// コピーコンストラクタ
+	IFileMapping(const IFileMapping&) = delete;
+
+	/// 代入演算子
+	IFileMapping& operator=(const IFileMapping& obj) = delete;
+
 protected:
 	///
 	/// IFileMapping オブジェクトをコンストラクタ。
@@ -108,13 +115,13 @@ private:
 	T* m_Ptr;
 
 	/// 代入演算子
-	IFileMapping& operator=(IFileMapping& obj) = delete;
+	CFileMappingPtr& operator=(const CFileMappingPtr& obj) = delete;
 
 public:
 	///
 	/// CFileMappingPtr オブジェクトをコンストラクタ。
 	///
-	CFileMappingPtr(IFileMapping* fileMapping)
+	explicit CFileMappingPtr(IFileMapping* fileMapping)
 		: m_FileMapping(NULL)
 		, m_Ptr(NULL)
 	{
@@ -174,11 +181,17 @@ private:
 	/// ファイルマップの管理オブジェクト。
 	IFileMapping* m_FileMapping;
 
+	/// コピーコンストラクタ
+	CFileMapping(const CFileMapping&) = delete;
+
+	/// 代入演算子
+	CFileMapping& operator=(const CFileMapping& obj) = delete;
+
 public:
 	///
 	/// CFileMapping オブジェクトをコンストラクタ。
 	///
-	CFileMapping(const TCHAR* name)
+	explicit CFileMapping(const TCHAR* name)
 		: m_FileMapping(IFileMapping::CreateInstance())
 	{
 		this->m_FileMapping->SetName(name);
